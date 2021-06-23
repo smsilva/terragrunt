@@ -1,0 +1,10 @@
+backend.tf
+provider.tf
+terragrunt.plan
+terragrunt-debug.tfvars.json
+tg.*.tf
+**/.terraform.*
+**/.terraform/*
+**/terraform.tfstate
+**/terraform.tfstate.backup
+**/**/.terragrunt-cache/
