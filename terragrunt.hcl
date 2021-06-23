@@ -14,14 +14,16 @@ remote_state {
 }
 
 locals {
-  bucket_vars = read_terragrunt_config(find_in_parent_folders("bucket.hcl"))
-  project     = local.bucket_vars.locals.project
-  region      = local.bucket_vars.locals.region
-  zone        = local.bucket_vars.locals.zone
+  provider_vars = read_terragrunt_config(find_in_parent_folders("provider.hcl"))
+  provider = {
+    project = local.provider_vars.locals.project
+    region  = local.provider_vars.locals.region
+    zone    = local.provider_vars.locals.zone
+  }
 }
 
 inputs = merge(
-  local.bucket_vars,
+  local.provider_vars,
   local
 )
 
@@ -40,18 +42,9 @@ terraform {
 }
 
 provider "google" {
-  project = "${local.project}"
-  region  = "${local.region}"
-  zone    = "${local.zone}"
-}
-EOF
-}
-
-generate "null_resource" {
-  path      = "tg.main.tf"
-  if_exists = "overwrite_terragrunt"
-  contents  = <<EOF
-resource "null_resource" "null" {
+  project = "${local.provider.project}"
+  region  = "${local.provider.region}"
+  zone    = "${local.provider.zone}"
 }
 EOF
 }

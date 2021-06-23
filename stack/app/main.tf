@@ -1,5 +1,5 @@
 variable "name" {
-  default = "database"
+  default = "app"
 }
 
 resource "null_resource" "creator" {
