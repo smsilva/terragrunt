@@ -21,6 +21,7 @@ locals {
 }
 
 inputs = merge(
+  local.bucket_vars,
   local
 )
 
