@@ -8,7 +8,7 @@ remote_state {
 
   config = {
     bucket               = "silvios"
-    prefix               = "${path_relative_to_include()}/state"
+    prefix               = "terragrunt/${path_relative_to_include()}"
     skip_bucket_creation = true
   }
 }
