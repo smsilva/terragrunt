@@ -8,17 +8,16 @@ remote_state {
 
   config = {
     bucket               = "silvios"
-    prefix               = "${path_relative_to_include()}/state"
+    prefix               = "${path_relative_to_include()}"
     skip_bucket_creation = true
   }
 }
 
 locals {
-  project_vars       = read_terragrunt_config(find_in_parent_folders("project.hcl"))
-  project            = local.project_vars.locals.project
-  region             = local.project_vars.locals.region
-  zone               = local.project_vars.locals.zone
-  modules_repository = "git::git@github.com:smsilva/infrastructure-modules.git"
+  project_vars = read_terragrunt_config(find_in_parent_folders("project.hcl"))
+  project      = local.project_vars.locals.project
+  region       = local.project_vars.locals.region
+  zone         = local.project_vars.locals.zone
 }
 
 generate "provider" {
@@ -45,7 +44,5 @@ EOF
 
 inputs = merge(
   local.project_vars.locals,
-  local.region_vars.locals,
-  local.environment_vars.locals,
   local
 )
