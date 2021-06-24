@@ -8,7 +8,7 @@ dependency "global_network" {
 
   mock_outputs = {
     id          = "temporary-dummy-id"
-    cidr_subnet = ""
+    cidr_subnet = "temporary-dummy-cidr_subnet"
   }
 }
 
