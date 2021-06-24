@@ -8,7 +8,7 @@ remote_state {
 
   config = {
     bucket               = "silvios"
-    prefix               = "${path_relative_to_include()}"
+    prefix               = "${get_env("PROJECT_NAME","default")}/${path_relative_to_include()}"
     skip_bucket_creation = true
   }
 }
