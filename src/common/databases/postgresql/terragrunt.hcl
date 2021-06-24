@@ -8,5 +8,5 @@ terraform {
 }
 
 inputs = {
-  name = "app-demo"
+  name = "postgresql"
 }
