@@ -3,10 +3,6 @@ include {
   expose = true
 }
 
-terraform {
-  source = "git::github.com/smsilva/terraform.git//modules/composite/cluster?ref=modules-composite"
-}
-
 dependency "global_network" {
   config_path = "${get_parent_terragrunt_dir()}/global/network"
 
@@ -14,6 +10,10 @@ dependency "global_network" {
     id          = "temporary-dummy-id"
     cidr_subnet = ""
   }
+}
+
+terraform {
+  source = "git::github.com/smsilva/terraform.git//modules/composite/cluster?ref=modules-composite"
 }
 
 inputs = {
