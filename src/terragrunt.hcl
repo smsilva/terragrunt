@@ -7,8 +7,8 @@ remote_state {
   }
 
   config = {
-    bucket               = "silvios"
-    prefix               = "${get_env("PROJECT_NAME","default")}/${path_relative_to_include()}"
+    bucket               = "${get_env("BUCKET_NAME", "silvios")}"
+    prefix               = "${get_env("PROJECT_NAME", "default")}/${path_relative_to_include()}"
     skip_bucket_creation = true
   }
 }
@@ -18,6 +18,12 @@ locals {
   project      = local.project_vars.locals.project
   region       = local.project_vars.locals.region
   zone         = local.project_vars.locals.zone
+
+  providers = {
+    google = {
+      version = "3.72.0"
+    }
+  }
 }
 
 generate "provider" {
@@ -29,7 +35,7 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "3.72.0"
+      version = "${local.providers.google.version}"
     }
   }
 }
@@ -44,5 +50,6 @@ EOF
 
 inputs = merge(
   local.project_vars.locals,
+  local.providers,
   local
 )
