@@ -15,15 +15,7 @@ remote_state {
 
 locals {
   project_vars = read_terragrunt_config(find_in_parent_folders("project.hcl"))
-  project      = local.project_vars.locals.project
-  region       = local.project_vars.locals.region
-  zone         = local.project_vars.locals.zone
-
-  providers = {
-    google = {
-      version = "3.72.0"
-    }
-  }
+  google       = local.project_vars.locals.providers.google
 }
 
 generate "provider" {
@@ -35,21 +27,21 @@ terraform {
   required_providers {
     google = {
       source  = "hashicorp/google"
-      version = "${local.providers.google.version}"
+      version = "${local.google.version}"
     }
   }
 }
 
 provider "google" {
-  project = "${local.project}"
-  region  = "${local.region}"
-  zone    = "${local.zone}"
+  project = "${local.google.project}"
+  region  = "${local.google.region}"
+  zone    = "${local.google.zone}"
 }
 EOF
 }
 
 inputs = merge(
   local.project_vars.locals,
-  local.providers,
+  local.google,
   local
 )
