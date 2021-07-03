@@ -12,5 +12,5 @@ terraform {
 }
 
 inputs = {
-  name = local.zone
+  name = "${local.zone}-SOMETHING"
 }
