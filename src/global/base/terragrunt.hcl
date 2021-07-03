@@ -4,13 +4,18 @@ include {
 }
 
 locals {
-  zone = include.locals.google.zone
+  google_vars = include.locals.google
+  project     = local.google_vars.project
+  region      = local.google_vars.region
+  environment = include.locals.environment
 }
 
 terraform {
-  source = "./main.tf"
+  source = "main.tf"
 }
 
 inputs = {
-  name = "${local.zone}-SOMETHING"
+  prefix = "${local.environment.name}"
+  name   = "${local.region}"
+  suffix = "base"
 }
