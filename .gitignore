@@ -8,3 +8,4 @@ tg.*.tf
 **/terraform.tfstate
 **/terraform.tfstate.backup
 **/**/.terragrunt-cache/
+.idea/
